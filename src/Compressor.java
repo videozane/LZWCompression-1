@@ -96,16 +96,18 @@ public class Compressor {
 	}
 	
 	public void createFile() {
-        Path path = Paths.get("doc.txt");
-        byte[] bytes = "ABCD".getBytes(StandardCharsets.UTF_8);
- 
-        try {
-            Files.write(path, bytes);    // Java 7+ only
-            System.out.println("Successfully written data to the file");
+        BinaryOut bitPrinter = new BinaryOut ("Compressed-file.bin");
+        for (int i = 0; i<encodedList.size(); i++) {
+        	for (int j = 0; j < 12; j ++) {
+        		if (encodedList.get(i).charAt(j)=='0') {
+        			bitPrinter.writeBit(false);
+        		}
+        		else {
+        			bitPrinter.writeBit(true);
+        		}
+        	}
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        bitPrinter.close();
     }
 
 
@@ -113,6 +115,7 @@ public class Compressor {
 	public static void main (String [] args) throws IOException {
 		Compressor smash = new Compressor ("CompressionTest0");
 		smash.compress();
+		smash.createFile();
 	}
 }
 
