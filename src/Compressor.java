@@ -41,7 +41,10 @@ public class Compressor {
 	}
 	
 	
-	//converts number to binary and then adds it into encodedList
+	/**
+	 * converts number to binary (12 bits long) and then adds it into encodedList
+	 * @param num is the number to be convertered to binary
+	 */
 	public void inputCode (int num) {
 		String binaryVersion = Integer.toBinaryString(num);
 		StringBuilder bob = new StringBuilder();
@@ -51,12 +54,19 @@ public class Compressor {
 		}
 		encodedList.add(bob.toString());
 	}
-	//always returns true
+	/**
+	 * 
+	 * @return true always. I added this so that the method would end if there is a document that only has one char
+	 * @throws IOException
+	 */
 	public boolean compress () throws IOException {
 		int counter = 256; // table starts off with 256 entries (0-255)
 		
 		BufferedReader reader = new BufferedReader (new FileReader (new File(inputFileName)));
 		String c = Character.toString((char) reader.read()); //current char being looked at
+		if (!!reader.ready()) {
+			return true;
+		}
 		String n = Character.toString((char) reader.read()); //next char
 		String combined = c + n;
 		if (encodeTable.containsKey (combined)) {
@@ -70,7 +80,10 @@ public class Compressor {
 			uncodedList.add(c);
 			c=n;
 		}
-		int toggleNum = 0;
+		
+		int toggleNum = 0; // keeps track if the loop below ends with a combined that's already in dictionary or one without
+		//because that stuff needs to be added after the loop breaks
+		
 		while (reader.ready()) { //loops while there is something left to be read
 			
 			n = Character.toString((char) reader.read());
