@@ -11,6 +11,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
 @SuppressWarnings("unused")
+
+
+/*
+ * USES 12 BITS
+ */
 public class Compressor {
 	
 	
@@ -27,10 +32,10 @@ public class Compressor {
 		uncodedList = new ArrayList<String>();
 		
 		//code below puts in normal chars into the table
-		for(int code = 0; code < 256; code++) {
-			char newChar = (char)code; //changes the index of ASCII to the core to a character
+		for(int index = 0; index < 256; index++) {
+			char newChar = (char)index; //changes the index of ASCII to a character
 			String toBeAdded = "" + newChar; //changes the character to a string
-			encodeTable.put(toBeAdded, code); //puts string into HashMap with corresponding spot in table
+			encodeTable.put(toBeAdded, index); //puts string into HashMap with corresponding spot in table
 		}
 		
 	}
@@ -94,7 +99,9 @@ public class Compressor {
 		}
 		return true;
 	}
-	
+	/**
+	 * creates a binary file using to BinaryOut class
+	 */
 	public void createFile() {
         BinaryOut bitPrinter = new BinaryOut ("Compressed-file.bin");
         for (int i = 0; i<encodedList.size(); i++) {
