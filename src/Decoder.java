@@ -4,7 +4,8 @@ import java.io.*;
 public class Decoder {
     
 /**
- * FUCK THIS BRUH
+ * wtf is this 
+ * 
  * PSEUDOCODE
 1    Initialize table with single character strings
 2    OLD = first input code
@@ -23,8 +24,36 @@ public class Decoder {
 15   END WHILE
  */
 
-    public Decoder () {
-        
+
+    //IM SORRY CHRIS!!!!!
+
+    private BufferedReader in;
+    private int tableEntry = 256;
+    private HashMap <Integer, String> dictionary;
+
+
+    public Decoder (String filename) throws IOException{
+        //for file reading
+        in = new BufferedReader (new FileReader(new File (filename)));
+        for (int i = 0; i < 256; i++) {
+            dictionary.put(i, "" + (char) i);
+        }
+
+    }
+
+    //decodes
+    public void Decode () throws IOException {
+
+        while (true) {
+
+            String cur = "" + in.read();
+            
+        }
+    }
+
+    //outputs a file
+    public void fileOut () {
+
     }
 
 

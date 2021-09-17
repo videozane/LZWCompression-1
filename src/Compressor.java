@@ -66,7 +66,7 @@ public class Compressor {
 		
 		BufferedReader reader = new BufferedReader (new FileReader (new File(inputFileName)));
 		String c = Character.toString((char) reader.read()); //current char being looked at
-		if (!!reader.ready()) {
+		if (!reader.ready()) {
 			return true;
 		}
 		String n = Character.toString((char) reader.read()); //next char
@@ -123,11 +123,15 @@ public class Compressor {
 		try{
 			outputFile = new FileWriter("EncodedOutput.txt");
 			writer = new BufferedWriter(outputFile);
+			writer.write("yo");
 			for (Integer num : encodedList){
 				writer.write(num+", ");
 			}
-		}finally{
 			writer.close();
+		}
+		catch(Exception e)
+		{
+			
 		}
 		//Previous verison of method is not compatible with integers. 
         // BinaryOut bitPrinter = new BinaryOut ("Compressed-file.bin");
