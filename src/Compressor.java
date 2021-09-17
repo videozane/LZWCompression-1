@@ -123,7 +123,6 @@ public class Compressor {
 		try{
 			outputFile = new FileWriter("EncodedOutput.txt");
 			writer = new BufferedWriter(outputFile);
-			writer.write("yo");
 			for (Integer num : encodedList){
 				writer.write(num+", ");
 			}
