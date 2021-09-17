@@ -5,9 +5,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 @SuppressWarnings("unused")
@@ -21,14 +23,14 @@ public class Compressor {
 	
 	private HashMap<String, Integer> encodeTable;
 	private String inputFileName;
-	private ArrayList<String>encodedList;
+	private ArrayList<Integer>encodedList;
 	private ArrayList<String>uncodedList;//temporary to debug
 	
 	
 	public Compressor (String inputFileName) {
 		encodeTable = new HashMap<String, Integer> ();
 		this.inputFileName = inputFileName;
-		encodedList = new ArrayList<String>();
+		encodedList = new ArrayList<Integer>();
 		uncodedList = new ArrayList<String>();
 		
 		//code below puts in normal chars into the table
@@ -46,13 +48,13 @@ public class Compressor {
 	 * @param num is the number to be convertered to binary
 	 */
 	public void inputCode (int num) {
-		String binaryVersion = Integer.toBinaryString(num);
-		StringBuilder bob = new StringBuilder();
-		bob.append(binaryVersion);
-		while (bob.length()< 12) {
-			bob.insert(0, "0");
-		}
-		encodedList.add(bob.toString());
+		// String binaryVersion = Integer.toBinaryString(num);
+		// StringBuilder bob = new StringBuilder();
+		// bob.append(binaryVersion);
+		// while (bob.length()< 12) {
+		// 	bob.insert(0, "0");
+		// }
+		encodedList.add(num);
 	}
 	/**
 	 * 
@@ -115,25 +117,37 @@ public class Compressor {
 	/**
 	 * creates a binary file using to BinaryOut class
 	 */
-	public void createFile() {
-        BinaryOut bitPrinter = new BinaryOut ("Compressed-file.bin");
-        for (int i = 0; i<encodedList.size(); i++) {
-        	for (int j = 0; j < 12; j ++) {
-        		if (encodedList.get(i).charAt(j)=='0') {
-        			bitPrinter.writeBit(false);
-        		}
-        		else {
-        			bitPrinter.writeBit(true);
-        		}
-        	}
-        }
-        bitPrinter.close();
+	public void createFile() throws IOException {
+		FileWriter outputFile;
+		BufferedWriter writer = null;
+		try{
+			outputFile = new FileWriter("EncodedOutput.txt");
+			writer = new BufferedWriter(outputFile);
+			for (Integer num : encodedList){
+				writer.write(num+", ");
+			}
+		}finally{
+			writer.close();
+		}
+		//Previous verison of method is not compatible with integers. 
+        // BinaryOut bitPrinter = new BinaryOut ("Compressed-file.bin");
+        // for (int i = 0; i<encodedList.size(); i++) {
+        // 	for (int j = 0; j < 12; j ++) {
+        // 		if (encodedList.get(i).charAt(j)=='0') {
+        // 			bitPrinter.writeBit(false);
+        // 		}
+        // 		else {
+        // 			bitPrinter.writeBit(true);
+        // 		}
+        // 	}
+        // }
+        // bitPrinter.close();
     }
 
 
 	
 	public static void main (String [] args) throws IOException {
-		Compressor smash = new Compressor ("CompressionTest0");
+		Compressor smash = new Compressor ("lzw-file1.txt");
 		smash.compress();
 		smash.createFile();
 	}
