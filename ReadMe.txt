@@ -1,22 +1,5 @@
-HELLO whoever gets this jank ass program. I think everything works but I didn't test it very well. 
+This is Zane. I kind of screwed up. I didn't realize I had forked the wrong version of Chris' code until I went to the decoder class, which wasn't finished. But when I went to fork a later commit, Chris had already committed optimization to his own code. So I decided to just go back to the previous commit and fork that one. That's my fault. 
 
-Every single coded character is 12 bits long.
+Anyways I cleaned up the compressor class. I removed createFile() since it was unnecessary given that it was just doing at a later time what could have been done in the moment. By preventing the need to travel through an Arraylist of n length, where n is the number of integers in the output, it should prevent a O(n) operation. I made it look a bit nicer and concise as well and changed variable names to be clearer. So, now the class only has one method (Also looking now at the readme Chris added to his final commit, he only optimized the decompressor class, so that should ensure that this is all my own work).
 
-Good luck with this :P
-
-
-Part 3 update: 
-
-
-Aaron wrote the decoder for the encoder and now I'm optimizing Aaron's decoder. It was really hard to optimize 
-anything major because Aaron never used a binary file, so there is much less going on. 
-There was a couple lines that I was able to delete because they were redundant; however,
-they were O(1), so that didn't really make a big difference as you can see.
-
-Avg time before optimization: 10.55ms
-Avg time after optimization: 10.4ms
-
-I read and understood how his code worked. I did fix some variable names which I thought were very unclear.
-I don't know the efficiency of Stirng.split, but I assume it's optimized. 
-
--Chris
+I then went to the decompressor class and found that the commit that I forked had already been slightly optimized. I really am sorry it wasn't my intention to fork incorrect code or code that had already been looked at. So given that this one was already been edited, it was harder to optimize, but I made a few tweaks. It was very well commented (good job to Aaron or whoever did that), so I took out a few lines that I believed were redundant.
