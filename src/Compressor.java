@@ -27,7 +27,7 @@ public class Compressor {
 	private ArrayList<String>uncodedList;//temporary to debug
 	
 	
-	public Compressor (String inputFileName) {
+	public Compressor (String inputFileName) throws IOException {
 		encodeTable = new HashMap<String, Integer> ();
 		this.inputFileName = inputFileName;
 		encodedList = new ArrayList<Integer>();
@@ -39,6 +39,7 @@ public class Compressor {
 			String toBeAdded = "" + newChar; //changes the character to a string
 			encodeTable.put(toBeAdded, index); //puts string into HashMap with corresponding spot in table
 		}
+		
 		
 	}
 	
@@ -150,7 +151,7 @@ public class Compressor {
 
 	
 	public static void main (String [] args) throws IOException {
-		Compressor smash = new Compressor ("lzw-file1.txt");
+		Compressor smash = new Compressor ("lzw-file3.txt");
 		smash.compress();
 		smash.createFile();
 	}
